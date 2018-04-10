@@ -33,7 +33,7 @@ class MyThreadRule4 extends Thread{
 			boolean max = true;
 			while(max){
 				url = "http://zawb.fjgat.gov.cn/weixin/zhfw/czw_qwjs_cx.jsp?sunitname=前埔"
-						+ "&phrase=福建省厦门市思明区"
+						+ "&phrase=福建省厦门市"
 						+ "&rowpage="+num
 						+"&ss_qx="+quyu[i]+"&rPageSize=15";
 				String a = HttpClientUtil.doGet(url);
