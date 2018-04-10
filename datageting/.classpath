@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/jar/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="D:/jar/httpclient-4.5.jar"/>
+	<classpathentry kind="lib" path="D:/jar/httpcore-4.4.1.jar"/>
+	<classpathentry kind="lib" path="D:/jar/httpmime-4.5.jar"/>
+	<classpathentry kind="lib" path="D:/jar/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="D:/jar/mysql-connector-java-5.1.30.jar"/>
+	<classpathentry kind="lib" path="D:/jar/slf4j-api-1.7.7.jar"/>
+	<classpathentry kind="lib" path="D:/jar/slf4j-log4j12-1.7.7.jar"/>
+	<classpathentry kind="lib" path="json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="commons-beanutils-1.9.3.jar"/>
+	<classpathentry kind="lib" path="ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="morph-1.1.jar"/>
+	<classpathentry kind="lib" path="commons-collections-3.2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
