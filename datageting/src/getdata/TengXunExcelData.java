@@ -73,7 +73,7 @@ public class TengXunExcelData {
 			rs= ps.executeQuery();
 			list = new ArrayList<House>();
 			while (rs.next()){
-	            list.add(new House(rs.getString("region")));
+	           // list.add(new House(rs.getString("region")));
 	        }
 		}catch(Exception e){
 			e.printStackTrace();

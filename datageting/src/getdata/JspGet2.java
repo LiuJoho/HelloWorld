@@ -6,22 +6,27 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Set;
 
 import com.ys.entity.Village;
 
 import util.DBUtil;
 import util.HttpClientUtil;
+import util.ThreadPoolUtils;
 
 
 public class JspGet2 {
 	public static void main(String[] args) throws FileNotFoundException {
 		MyThreadRule4 tr = new MyThreadRule4();
-		tr.start();		
+		ThreadPoolUtils.execute(new MyThreadRule4());
+		//tr.start();		
 	}
 
 	
@@ -42,34 +47,45 @@ class MyThreadRule4 extends Thread{
 		String url = "";
 		//String[] quyu = {"350203","350205","350206","350211","350212","350213"};
 		for (Village village : list) {
-			int num = 0;
-			boolean max = true;
-			while(max){
-				url = "http://zawb.fjgat.gov.cn/weixin/zhfw/czw_qwjs_cx.jsp?sunitname="+village.getLocation()
-						+ "&phrase=福建省厦门市"+village.getCounty()
-						+ "&rowpage="+num
-						+"&ss_qx="+map.get(village.getCounty())+"&rPageSize=15";
-				System.out.println("url:" + url);
-				String a = HttpClientUtil.doGet(url);
-				System.out.println(a);
-				if (a.indexOf("<li") != -1) {
-					num++;
-					String[] b = a.split("</li>");		
-					for (int j = 0; j < b.length - 1; j++) {
-						String c = b[j].substring(b[j].indexOf("pic(") + 4, b[j].indexOf(");"));
-						String d = c.substring(c.indexOf(",") + 1, c.length()).replace("'", "");
-						String urlPath = "http://www.fjadd.com/addr?id=" + d;
-						System.out.println(urlPath);
-						getInfo(urlPath,village.getVillage());
-					}
-				}else{
-					max = false;
-					if (num == 0) {
-						System.out.println(village.getVillage() + "," 
-					+ village.getLocation() + ","+ village.getCounty());
+			if (village.getId() >= 53) {
+				int num = 0;
+				boolean max = true;
+				while(max){
+					url = "http://zawb.fjgat.gov.cn/weixin/zhfw/czw_qwjs_cx.jsp?sunitname="+ village.getLocation()
+							+ "&phrase=福建省厦门市"+village.getCounty()
+							+ "&rowpage="+num
+							+"&ss_qx="+map.get(village.getCounty())+"&rPageSize=15";
+					System.out.println("url:" + url);
+					String a = HttpClientUtil.doGet(url);
+					System.out.println(a);
+					if (a.indexOf("<li") != -1) {
+						num++;
+						String[] b = a.split("</li>");		
+						for (int j = 0; j < b.length - 1; j++) {
+							String c = b[j].substring(b[j].indexOf("pic(") + 4, b[j].indexOf(");"));
+							String d = c.substring(c.indexOf(",") + 1, c.length()).replace("'", "");
+							String urlPath = "http://www.fjadd.com/addr?id=" + d;
+							System.out.println(urlPath);
+							try{
+								getInfo(d,urlPath,village.getVillage());
+							}catch(Exception e){
+								System.out.println("插入数据库报错了！");
+								e.printStackTrace();
+							}
+						}
+					}else{
+						max = false;
+						if (num == 0) {
+							System.out.println(village.getVillage() + "," 
+						+ village.getLocation() + ","+ village.getCounty());
+							insertTemp(village.getVillage(),village.getLocation(),village.getCounty());
+						}
 					}
 				}
-			}								
+			}else{
+				System.out.println("已录：" + village.getVillage() + "对应ID：" + village.getId());
+			}
+											
 		}						
 	
 	}
@@ -81,12 +97,12 @@ class MyThreadRule4 extends Thread{
 		List<Village> list = null;
 		try{
 			conn = DBUtil.getConn();			
-			String sql = "select * from village_report";
+			String sql = "select * from village_report_temp";
 			ps = conn.prepareStatement(sql);
 			rs= ps.executeQuery();
 			list = new ArrayList<Village>();
 			while (rs.next()){
-	            list.add(new Village(rs.getString("village"),rs.getString("location"),rs.getString("county")));
+	            list.add(new Village(rs.getInt("id"),rs.getString("village"),rs.getString("location"),rs.getString("county")));
 	        }
 		}catch(Exception e){
 			e.printStackTrace();
@@ -130,7 +146,7 @@ class MyThreadRule4 extends Thread{
 		}
 	}
 	
-	public void getInfo(String str,String village){
+	public void getInfo(String id,String str,String village){
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try{
@@ -142,7 +158,6 @@ class MyThreadRule4 extends Thread{
 			int c = a.indexOf("addr:");
 			int d = a.indexOf("key=");
 			if (i>0&&j>0) {
-				UUID id = UUID.randomUUID();
 				int imgFrom = a.indexOf("showimg('");
 				String imgUrl = null;
 				if(imgFrom>0){
@@ -152,7 +167,7 @@ class MyThreadRule4 extends Thread{
 				}
 				String[] bb = a.substring(i+6,j-1).split(",");
 				String addr = a.substring(c+5,d-1);
-				String sql = "insert into village_add (id,latitude,longitude,address,picurl,police,village)values(?,?,?,?,?,?,?)";
+				String sql = "insert into village_add (id,latitude,longitude,address,picurl,police,village,createtime)values(?,?,?,?,?,?,?,?)";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, id.toString());
 				ps.setString(2, bb[0]);
@@ -173,6 +188,8 @@ class MyThreadRule4 extends Thread{
 					ps.setString(6, null);
 				}
 				ps.setString(7,village);
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				ps.setString(8,df.format(new Date()));
 				ps.execute();
 				System.out.println(Thread.currentThread().getName());
 				System.out.println("【获得的纬度："+bb[0]+"】,【地址："+addr+"】,【图片地址:"+village+"】"+"】,【获得的经度："+bb[1]+"】");
