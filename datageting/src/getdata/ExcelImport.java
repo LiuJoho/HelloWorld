@@ -153,20 +153,24 @@ public class ExcelImport {
 		yd.setCounty(county);
 		Cell townsNum = row.getCell(childHeadMap.get("towns"));
 		String towns = (String) NumAndCode.getRightTypeCell(townsNum);
-		yd.setCounty(towns);
+		yd.setTowns(towns);
 		Cell countryNum = row.getCell(childHeadMap.get("country"));
 		String country = (String) NumAndCode.getRightTypeCell(countryNum);
-		yd.setCounty(country);
+		yd.setCountry(country);
 		Cell villageNum = row.getCell(childHeadMap.get("village"));
 		String village = (String) NumAndCode.getRightTypeCell(villageNum);
-		yd.setCounty(village);
+		yd.setVillage(village);
 		Cell doorplateNum = row.getCell(childHeadMap.get("doorplate"));
 		String doorplate = (String) NumAndCode.getRightTypeCell(doorplateNum);
-		yd.setCounty(doorplate);
+		if ("/".equals(doorplate)) {
+			yd.setDoorplate(null);
+		}else{
+			yd.setDoorplate(doorplate);
+		}
+		
 		Cell buildingNum = row.getCell(childHeadMap.get("building"));
 		String building = (String) NumAndCode.getRightTypeCell(buildingNum);
-		yd.setCounty(building);
-		System.out.println("移动：" + yd);
+		yd.setBuilding(building);
 		insertYD(yd);
     }
 	
