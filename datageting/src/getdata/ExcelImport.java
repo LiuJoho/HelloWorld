@@ -29,7 +29,7 @@ public class ExcelImport {
 	public static void main(String[] args) {
 		String path = "D:\\测试Excel.xlsx";
 		ExcelImport ei = new ExcelImport();
-		ei.getDataFromExcel(filePath);
+		ei.getDataFromExcel(path);
 	}
 	
 	public void getDataFromExcel(String filePath)
@@ -166,6 +166,7 @@ public class ExcelImport {
 		Cell buildingNum = row.getCell(childHeadMap.get("building"));
 		String building = (String) NumAndCode.getRightTypeCell(buildingNum);
 		yd.setCounty(building);
+		System.out.println("移动：" + yd);
 		insertYD(yd);
     }
 	
