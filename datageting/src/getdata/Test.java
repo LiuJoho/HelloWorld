@@ -21,8 +21,13 @@ public static void main(String[] args) {
 			String one = Integer.toHexString(i).toUpperCase();
 			ThreadPoolUtils.execute(new MyRunnable(one) );
 		}*/
-	insert2ause();
-	 
+	//insert2ause();
+		String str = "http://www.fjadd.com/addr?id=1C2C32B9-D416-26E9-E054-90E2BA548A34";
+		String a = HttpClientUtil.doGet(str);
+		int i = a.indexOf("coord:");
+		int j = a.indexOf("title:");
+		String bb = a.substring(i+6,j-1);
+		System.out.println("url地址："+bb);
 		
 	}
 

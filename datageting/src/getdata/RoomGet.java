@@ -39,7 +39,7 @@ class MyThreadRule5 extends Thread{
 		list = queryInfo();
 		String url = "";
 		for (Village vill : list) {
-			url = "http://zawb.fjgat.gov.cn/weixin/zhfw/house_jzw_room.jsp?operid=ovT0guIoRy-oFZCXDUATnH5Np2H4&systemid=" + vill.getId();
+			url = "http://zawb.fjgat.gov.cn/weixin/zhfw/house_jzw_room.jsp?operid=ovT0guIoRy-oFZCXDUATnH5Np2H4&systemid=" + vill.getDoorid();
 			System.out.println("url:" + url);
 			String a = HttpClientUtil.doGet(url);
 			String[] b = a.split("</table>");
@@ -52,7 +52,12 @@ class MyThreadRule5 extends Thread{
 						String d = c[j].substring(c[j].indexOf("('") + 2, c[j].indexOf("','"));
 						System.out.println(d);
 						String urlPath = "http://www.fjadd.com/addr?id=" + d;
-						getInfo(vill.getDoorid(),d,urlPath,vill.getVillage());
+						try{
+							getInfo(vill.getDoorid(),d,urlPath,vill.getVillage());
+						}catch(Exception e){
+							e.printStackTrace();
+						}
+						
 					}
 				}
 			}

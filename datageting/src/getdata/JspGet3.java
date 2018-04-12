@@ -22,17 +22,17 @@ import util.HttpClientUtil;
 import util.ThreadPoolUtils;
 
 
-public class JspGet2 {
+public class JspGet3 {
 	public static void main(String[] args) throws FileNotFoundException {
-		MyThreadRule4 tr = new MyThreadRule4();
-		ThreadPoolUtils.execute(new MyThreadRule4());
+		MyThreadRule6 tr = new MyThreadRule6();
+		ThreadPoolUtils.execute(new MyThreadRule6());
 		//tr.start();		
 	}
 
 	
 
 }
-class MyThreadRule4 extends Thread{
+class MyThreadRule6 extends Thread{
 	@Override
 	public void run() {
 		Map<String,String> map = new HashMap<String,String>();
@@ -43,17 +43,16 @@ class MyThreadRule4 extends Thread{
 		map.put("同安区","350212");
 		map.put("翔安区","350213");
 		List<Village> list = new ArrayList<Village>();
-		list = queryInfo();
+		//list = queryInfo();
 		String url = "";
 		//String[] quyu = {"350203","350205","350206","350211","350212","350213"};
-		for (Village village : list) {
 				int num = 0;
 				boolean max = true;
 				while(max){
-						url = "http://zawb.fjgat.gov.cn/weixin/zhfw/czw_qwjs_cx.jsp?sunitname="+ village.getLocation()
-						+ "&phrase=福建省厦门市"+village.getCounty()
+						url = "http://zawb.fjgat.gov.cn/weixin/zhfw/czw_qwjs_cx.jsp?sunitname=灌口中路"
+						+ "&phrase=福建省厦门市集美区"
 						+ "&rowpage="+num
-						+"&ss_qx="+map.get(village.getCounty())+"&rPageSize=15";
+						+"&ss_qx=350211&rPageSize=15";
 						System.out.println("url:" + url);
 						String a = HttpClientUtil.doGet(url);
 						System.out.println(a);
@@ -66,7 +65,7 @@ class MyThreadRule4 extends Thread{
 								String urlPath = "http://www.fjadd.com/addr?id=" + d;
 								System.out.println(urlPath);
 								try{
-									getInfo(d,urlPath,village.getVillage());
+									getInfo(d,urlPath,"许行村");
 								}catch(Exception e){
 									System.out.println("插入数据库报错了！");
 									e.printStackTrace();
@@ -74,20 +73,13 @@ class MyThreadRule4 extends Thread{
 							}
 						}else{
 							max = false;
-							if (num == 0) {
-								System.out.println(village.getVillage() + "," 
-							+ village.getLocation() + ","+ village.getCounty());
-								insertTemp(village.getVillage(),village.getLocation(),village.getCounty());
-							}
 						}
 /*					}else{
 						max = false;
 						System.out.println("已录：" + village.getLocation() + ",或者空");
 					}*/
 					
-				}
-											
-		}						
+				}						
 	
 	}
 	
