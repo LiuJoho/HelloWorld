@@ -1,5 +1,10 @@
 package com.ys.entity;
 
+/**
+ * 移动的地址
+ * @author Administrator
+ *
+ */
 public class YDaddress {
 
 	private Long id;

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class DBUtil {
 	// 定义数据库连接参数
 	public static final String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
-	public static final String URL = "jdbc:mysql://39.108.148.177:3306/test?useUnicode=true&characterEncoding=UTF-8";
+	public static final String URL = "jdbc:mysql://39.108.148.177:3306/test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true";
 	public static final String USERNAME = "user_vm";
 	public static final String PASSWORD = "admin";
 	

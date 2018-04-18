@@ -33,38 +33,47 @@ public class NumAndCode {
    	
     	Cell cell = rowHead.getCell(flag);
     	switch (getRightTypeCell(cell).toString()) {
-			case "地市":
+	    	case "city":
 				childHeadMap.put("city", flag);
 				break;
-			case "县市":
+			case "county":
 				childHeadMap.put("county", flag);
 				break;
-			case "乡镇":
+			case "towns":
 				childHeadMap.put("towns", flag);
 				break;
-			case "村居名称":
+			case "country":
 				childHeadMap.put("country", flag);
 				break;
-			case "小区名称":
+			case "village":
 				childHeadMap.put("village", flag);
 				break;
-			case "门牌号":
+			case "doorplate":
 				childHeadMap.put("doorplate", flag);
 				break;
-			case "楼名称":
-				childHeadMap.put("building", flag);
+			case "box_num":
+				childHeadMap.put("box_num", flag);
 				break;
-			case "村居编码":
-				childHeadMap.put("cellCoding", flag);
+			case "latitude":
+				childHeadMap.put("latitude", flag);
 				break;
-			case "小区编码":
-				childHeadMap.put("villageCode", flag);
+			case "longitude":
+				childHeadMap.put("longitude", flag);
 				break;
-			case "楼道名称":
-				childHeadMap.put("buildName", flag);
+			case "free_num":
+				childHeadMap.put("free_num", flag);
 				break;
-			case "房间号":
-				childHeadMap.put("houseName", flag);
+			case "box_name":
+				childHeadMap.put("box_name", flag);
+				break;
+			case "house_num":
+				childHeadMap.put("house_num", flag);
+				break;
+			case "remarks":
+				childHeadMap.put("remarks", flag);
+				break;
+			case "box_address":
+				childHeadMap.put("box_address", flag);
 				break;
 		}
     	return childHeadMap;

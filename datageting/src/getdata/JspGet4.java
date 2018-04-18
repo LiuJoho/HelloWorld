@@ -49,7 +49,6 @@ class MyThreadRule7 extends Thread{
 		List<Village> list = new ArrayList<Village>();
 		//list = queryInfo();
 		String url = "";
-		//String[] quyu = {"350203","350205","350206","350211","350212","350213"};
 				int number = 145;
 				while(number <= 181){
 						url = "http://zawb.fjgat.gov.cn/weixin/zhfw/czw_qwjs_cx.jsp?sunitname=台湾街" + number
@@ -73,10 +72,6 @@ class MyThreadRule7 extends Thread{
 									e.printStackTrace();
 								}
 							}
-/*					}else{
-						max = false;
-						System.out.println("已录：" + village.getLocation() + ",或者空");
-					}*/
 					
 				}						
 	

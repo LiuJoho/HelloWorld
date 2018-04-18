@@ -49,7 +49,7 @@ class MyThreadRule6 extends Thread{
 				int num = 0;
 				boolean max = true;
 				while(max){
-						url = "http://zawb.fjgat.gov.cn/weixin/zhfw/czw_qwjs_cx.jsp?sunitname=灌口中路"
+						url = "http://zawb.fjgat.gov.cn/weixin/zhfw/czw_qwjs_cx.jsp?sunitname=宁海"
 						+ "&phrase=福建省厦门市集美区"
 						+ "&rowpage="+num
 						+"&ss_qx=350211&rPageSize=15";
@@ -65,7 +65,7 @@ class MyThreadRule6 extends Thread{
 								String urlPath = "http://www.fjadd.com/addr?id=" + d;
 								System.out.println(urlPath);
 								try{
-									getInfo(d,urlPath,"许行村");
+									getInfo(d,urlPath,"万科金域华府一期");
 								}catch(Exception e){
 									System.out.println("插入数据库报错了！");
 									e.printStackTrace();
@@ -118,7 +118,7 @@ class MyThreadRule6 extends Thread{
 		PreparedStatement ps = null;
 		try{
 			conn = DBUtil.getConn();			
-				String sql = "insert into village_temp_two (village,location,county)values(?,?,?)";
+				String sql = "insert into village_temp (village,location,county)values(?,?,?)";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, village);
 				ps.setString(2, location);
@@ -160,7 +160,7 @@ class MyThreadRule6 extends Thread{
 				}
 				String[] bb = a.substring(i+6,j-1).split(",");
 				String addr = a.substring(c+5,d-1);
-				String sql = "insert into village_add (id,latitude,longitude,address,picurl,police,village,createtime)values(?,?,?,?,?,?,?,?)";
+				String sql = "insert into village_free (id,latitude,longitude,address,picurl,police,village,createtime)values(?,?,?,?,?,?,?,?)";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, id.toString());
 				ps.setString(2, bb[0]);
