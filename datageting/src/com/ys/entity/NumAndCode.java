@@ -28,8 +28,31 @@ public class NumAndCode {
 		this.childCode = childCode;
 	}
 	
+	public static Map<Object,Integer> setChildHeader(Row rowHead,int flag){  
+	   	
+    	Cell cell = rowHead.getCell(flag);
+    	switch (getRightTypeCell(cell).toString()) {
+			case "county":
+				childHeadMap.put("county", flag);
+				break;
+			case "towns":
+				childHeadMap.put("towns", flag);
+				break;
+			case "country":
+				childHeadMap.put("country", flag);
+				break;
+			case "village":
+				childHeadMap.put("village", flag);
+				break;
+			case "doorplate":
+				childHeadMap.put("doorplate", flag);
+				break;
+		}
+    	return childHeadMap;
+    }
+	
 	//学生表头
-    public static Map<Object,Integer> setChildHeader(Row rowHead,int flag){  
+/*    public static Map<Object,Integer> setChildHeader(Row rowHead,int flag){  
    	
     	Cell cell = rowHead.getCell(flag);
     	switch (getRightTypeCell(cell).toString()) {
@@ -77,7 +100,7 @@ public class NumAndCode {
 				break;
 		}
     	return childHeadMap;
-    }   
+    } */  
 	
     /**
      *     

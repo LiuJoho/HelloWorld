@@ -9,6 +9,8 @@ public class Village {
 	private String latitude;
 	private String location;
 	private String county;
+	private String country;
+	private String building;
 	
 	public String getVillage() {
 		return village;
@@ -26,7 +28,25 @@ public class Village {
 		super();
 		this.doorid = doorid;
 		this.village = village;
+	}	
+
+	public Village(int id, String village, String location, String county, String country) {
+		super();
+		this.id = id;
+		this.village = village;
+		this.location = location;
+		this.county = county;
+		this.country = country;
 	}
+	
+	public Village(String village, String building, String county, String country) {
+		super();
+		this.village = village;
+		this.building = building;
+		this.county = county;
+		this.country = country;
+	}
+	
 
 	public int getId() {
 		return id;
@@ -71,11 +91,28 @@ public class Village {
 	public void setCounty(String county) {
 		this.county = county;
 	}
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	
+
+	public String getBuilding() {
+		return building;
+	}
+
+	public void setBuilding(String building) {
+		this.building = building;
+	}
 
 	@Override
 	public String toString() {
 		return "Village [id=" + id + ", doorid=" + doorid + ", village=" + village + ", longitude=" + longitude
-				+ ", latitude=" + latitude + ", location=" + location + ", county=" + county + "]";
+				+ ", latitude=" + latitude + ", location=" + location + ", county=" + county + ", country=" + country
+				+ ", building=" + building + "]";
 	}
 
 		

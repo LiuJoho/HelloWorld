@@ -72,7 +72,7 @@ class MyThreadRule5 extends Thread{
 		List<Village> list = null;
 		try{
 			conn = DBUtil.getConn();			
-			String sql = "select * from village_free";
+			String sql = "select * from village_all_remove7";
 			ps = conn.prepareStatement(sql);
 			rs= ps.executeQuery();
 			list = new ArrayList<Village>();

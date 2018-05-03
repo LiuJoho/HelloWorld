@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import com.ys.entity.House;
+
 import util.DBUtil;
 import util.HttpClientUtil;
 
